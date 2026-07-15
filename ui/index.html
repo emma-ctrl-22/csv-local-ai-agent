@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ledger Local</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- top bar -->
+  <header class="topbar">
+    <div class="brand">
+      <svg class="logo" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="7" y="4" width="18" height="24" rx="3" fill="var(--accent)"/>
+        <rect x="10.5" y="4" width="1.6" height="24" fill="#fff" opacity="0.85"/>
+        <rect x="14" y="9"  width="8" height="1.8" rx="0.9" fill="#fff" opacity="0.9"/>
+        <rect x="14" y="13" width="8" height="1.8" rx="0.9" fill="#fff" opacity="0.9"/>
+        <rect x="14" y="17" width="6" height="1.8" rx="0.9" fill="var(--danger)"/>
+        <rect x="14" y="21" width="8" height="1.8" rx="0.9" fill="#fff" opacity="0.9"/>
+      </svg>
+      <span class="brand-name">Ledger Local</span>
+    </div>
+
+    <div class="topbar-right">
+      <button class="status-pill" id="status-pill" title="Ollama connection">
+        <span class="dot" id="status-dot"></span>
+        <span id="status-text">connecting…</span>
+      </button>
+      <select id="model-select" aria-label="Model" hidden></select>
+      <button class="btn new-chat" id="new-chat">
+        <svg viewBox="0 0 16 16" class="ic" aria-hidden="true"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        New chat
+      </button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- navigator -->
+    <nav class="navigator" aria-label="Files and results">
+      <div class="nav-section">
+        <div class="nav-title">Files</div>
+        <ul id="file-list" class="nav-list"></ul>
+        <p class="nav-empty" id="files-empty">Nothing open yet.</p>
+      </div>
+
+      <div class="nav-section">
+        <div class="nav-title">Results <span class="nav-hint" id="results-hint"></span></div>
+        <ul id="result-list" class="nav-list"></ul>
+        <p class="nav-empty" id="results-empty">Ask a question to produce a result.</p>
+      </div>
+
+      <div class="nav-foot">
+        <button class="btn ghost full" id="open-files">
+          <svg viewBox="0 0 16 16" class="ic" aria-hidden="true"><path d="M2 4.5A1.5 1.5 0 0 1 3.5 3h3l1.5 1.5h4.5A1.5 1.5 0 0 1 14 6v5.5A1.5 1.5 0 0 1 12.5 13h-9A1.5 1.5 0 0 1 2 11.5z" fill="none" stroke="currentColor" stroke-width="1.3"/></svg>
+          <span>Open files</span>
+        </button>
+        <button class="btn ghost full" id="reveal-exports">
+          <svg viewBox="0 0 16 16" class="ic" aria-hidden="true"><path d="M8 2v8m0 0 3-3m-3 3L5 7M3 13h10" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Export folder</span>
+        </button>
+        <button class="btn ghost full" id="show-activity">
+          <svg viewBox="0 0 16 16" class="ic" aria-hidden="true"><path d="M2 8h3l1.5-4 3 8L13 8h1" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Activity log</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- viewer -->
+    <section class="viewer" aria-label="File viewer">
+      <div class="tabstrip" id="tabstrip"></div>
+      <div class="viewer-body" id="viewer-body"></div>
+    </section>
+
+    <!-- chat -->
+    <section class="chat" aria-label="Assistant">
+      <div class="messages" id="messages">
+        <div class="welcome-chat" id="welcome-chat">
+          <h2>What can I do with your files?</h2>
+          <p class="muted">Open a spreadsheet or PDF, then ask in plain language. Every number is computed exactly — I never do the arithmetic in my head.</p>
+        </div>
+      </div>
+
+      <form class="composer" id="composer">
+        <textarea id="ask-input" rows="1" placeholder="Ask about your files…  (Enter to send, Shift+Enter for a new line)"></textarea>
+        <button class="btn send" id="send" type="submit" aria-label="Send">
+          <svg viewBox="0 0 16 16" class="ic" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+[package]
+name = "ledger-local"
+version = "0.1.0"
+edition = "2021"
+description = "Ledger Local — offline accounting assistant with a local LLM"
+# Tauri 2 needs rustc >= 1.77.2 — install via rustup on the build machine.
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+ledger-core = { path = "../core" }
+tauri = { version = "2", features = [] }
+tauri-plugin-dialog = "2"
+tauri-plugin-opener = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[lib]
+name = "ledger_local_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

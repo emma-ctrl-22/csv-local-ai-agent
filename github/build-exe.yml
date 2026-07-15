@@ -1,0 +1,28 @@
+name: Build Windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - run: cargo install tauri-cli --version "^2"
+
+      - run: cargo tauri build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: src-tauri/target/release/bundle
